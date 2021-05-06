@@ -8,9 +8,36 @@ Este algoritmo e dividido em passos, vamos passar pela coleta de dados brutos, p
 
 Os dados foram coletados a partir do site da Kraggle (https://www.kaggle.com/) no endereco completo que se refere aos dados sobre as Iris Species em CSV (https://www.kaggle.com/uciml/iris), a planilha vem bruta com dados das petalas. Os dados das sépala incluem (excluindo a identificacao do registro em 'Id') Comprimento, Largura, e da petala incluem tambem comprimento e largura, dados que para determinados valores para esses parametros pode-se saber sobre qual flor se trata ('Species',coluna como consta no CSV), que no caso e nosso conjunto de saida ou resultado que podem ser 'Iris-Setosa', 'Iris-versicolor' ou 'Iris-Virginica'.
 
+```
+csvPath = "/home/slammernet/Downloads/archive/Iris.csv"
+csvTestPath = "/home/slammernet/Downloads/archive/Iris_test.csv"
+```
+
 - Preparacao dos Dados:
 
 Para a preparacao dos dados, foi usado principalmente a biblioteca Pandas. O primeiro passo da preparacao, foi definir uma parte dos dados para treinamento do ML e outra para efetuar o teste validador, checando sua precisao e perda (dando mais enfase para a precisao), de todos os dados, houve uma regra 70/30 (70% para treinar, 30% para teste). Depois de definirmor os dados para treino e para teste, o proximo passo e retirar a parte que nao e utilizada para o treinamento, no caso as colunas de identificador ('Id') e de resultado (nossa coluna 'Species'), o resultado sera utilizado para servir de resposta esperada do treinamento (dados -> treinamento -> resposta correta).
+
+```
+csv = pd.read_csv(csvPath)
+csv_test = pd.read_csv(csvTestPath)
+
+csv['Species'] = pd.Categorical(csv['Species'])
+csv['Species'] = csv.Species.cat.codes
+csv_test['Species'] = pd.Categorical(csv_test['Species'])
+csv_test['Species'] = csv_test.Species.cat.codes
+
+csv_labels = csv.pop('Species')
+csv_test_labels = csv_test.pop('Species')
+csv.pop('Id')
+csv_test.pop('Id')
+```
+
+E apos isso, a criacao dos datasets, com todos os dados formatados:
+
+```
+dataset_origin = tf.data.Dataset.from_tensor_slices((csv, csv_labels))
+dataset_test = tf.data.Dataset.from_tensor_slices((csv_test, csv_test_labels))
+```
 
 - Criacao das camadas da rede no Keras:
 
@@ -29,9 +56,29 @@ Lembrando que em python, os indices do nosso conjunto resposta comeca em 0.
 
 Em codigo, ja sabemos que nosso modelo tera uma saida de 3 neuronios (nos), para que suporte a saida como esperado, e que nossa(s) camada(s) intermediarias anterior a ela tera uma funcao de ativacao softmax, que e mais recomendada para a conversao de vetores para um vetor de probabilidade categorica (como mencionada na documentacao da API Keras). Visualmente temos nosso modelo Sequecial quase inteiro, basta apenas adicionar a camada de entrada dos dados ('Entrada'):
 
-modelo tf.keras.Sequencial([
-	tf.keras.layer.Dense(10, activation='relu', name='Entrada'),
-	tf.keras.layer.Dense(10, activation='softmax', name='Intermediaria'),
-	tf.keras.layer.Dense(3, activation='softmax', name='Saida')
-])
+```
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(10, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax'),
+    tf.keras.layers.Dense(3, activation='softmax')
+    ])
+```
 
+E agora compilar nosso modelo, neste, utilizaremos o otimizador _Adam_ e a funcao de perda ('Loss') _sparse_categorical_crossentropy_, nesta, a perda e calculada segundo a crossentropia entre as etiquetas e as previsoes calculadas, sendo a mais adequada matematicamente (vide https://keras.io/api/losses/):
+
+```
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+```
+E por fim, nosso ultimo passo treinar o modelo com o dataset, avaliar os resultados de perda e precisao e claro, tentar fazer uma previsao:
+
+```
+model.fit(train_dataset, epochs=150)
+loss, acc = model.evaluate(csv_test, csv_test_labels, verbose=2)
+prediction = model.predict(csv_test)
+```
+Nosso resultado final se da na imagem abaixo, como podem ver a precisao chegou a 100% (1.0) nos testes feitos com a base de 30% destinada a avaliacao do modelo.
+(canto inferior direito, temos o terminal com a saida no estilo que propomos no comeco.)
+
+![image](https://user-images.githubusercontent.com/23524569/117348306-6ea0a200-ae80-11eb-88a6-7ceb832e7f47.png)

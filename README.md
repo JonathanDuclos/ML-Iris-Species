@@ -29,9 +29,9 @@ Lembrando que em python, os indices do nosso conjunto resposta comeca em 0.
 
 Em codigo, ja sabemos que nosso modelo tera uma saida de 3 neuronios (nos), para que suporte a saida como esperado, e que nossa(s) camada(s) intermediarias anterior a ela tera uma funcao de ativacao softmax, que e mais recomendada para a conversao de vetores para um vetor de probabilidade categorica (como mencionada na documentacao da API Keras). Visualmente temos nosso modelo Sequecial quase inteiro, basta apenas adicionar a camada de entrada dos dados ('Entrada'):
 
-modelo Sequencial = [
-	keras.layer.Dense(10, name='Entrada'),
-	keras.layer.Dense(10, activation='softmax', name='Intermediaria'),
-	keras.layer.Dense(3, activation='softmax', name='Saida')
-]
+modelo tf.keras.Sequencial([
+	tf.keras.layer.Dense(10, activation='relu', name='Entrada'),
+	tf.keras.layer.Dense(10, activation='softmax', name='Intermediaria'),
+	tf.keras.layer.Dense(3, activation='softmax', name='Saida')
+])
 

@@ -1,6 +1,7 @@
 # ML-Iris-Species
-######  **Utilizacao de Machine Learning para classificacao de flores segundo as suas caracteristicas.**
-###### O projeta apresenta da forma mais rapida e simples o passo-a-passo para que o algoritmo Machine Learning em Python possa classificacar as flores segundas caracteristicas de suas petalas.
+###### Utilizacao de Machine Learning para classificacao de flores segundo as suas caracteristicas. O projeta apresenta da forma mais rapida e simples o passo-a-passo para que o algoritmo Machine Learning em Python possa classificacar as flores segundas caracteristicas de suas petalas.
+
+##### Use of Machine Learning to classify flowers according to their characteristics. The project presents in a quick and simple way the step-by-step so that the Machine Learning algorithm in Python can classify the second flowers characteristic of its petals.
 
 Este algoritmo e dividido em passos, vamos passar pela coleta de dados brutos, preparacao dos dados, criacao dao algoritmo Machine Learning (ML) para iniciar o aprendizado, e por fim o teste para validar a precisao do modelo criado e perda.
 

@@ -11,6 +11,8 @@ Os dados foram coletados a partir do site da Kraggle (https://www.kaggle.com/) n
 ```
 csvPath = "/home/slammernet/Downloads/archive/Iris.csv"
 csvTestPath = "/home/slammernet/Downloads/archive/Iris_test.csv"
+csv = pd.read_csv(csvPath)
+csv_test = pd.read_csv(csvTestPath)
 ```
 
 - Preparacao dos Dados:
@@ -18,9 +20,6 @@ csvTestPath = "/home/slammernet/Downloads/archive/Iris_test.csv"
 Para a preparacao dos dados, foi usado principalmente a biblioteca Pandas. O primeiro passo da preparacao, foi definir uma parte dos dados para treinamento do ML e outra para efetuar o teste validador, checando sua precisao e perda (dando mais enfase para a precisao), de todos os dados, houve uma regra 70/30 (70% para treinar, 30% para teste). Depois de definirmor os dados para treino e para teste, o proximo passo e retirar a parte que nao e utilizada para o treinamento, no caso as colunas de identificador ('Id') e de resultado (nossa coluna 'Species'), o resultado sera utilizado para servir de resposta esperada do treinamento (dados -> treinamento -> resposta correta).
 
 ```
-csv = pd.read_csv(csvPath)
-csv_test = pd.read_csv(csvTestPath)
-
 csv['Species'] = pd.Categorical(csv['Species'])
 csv['Species'] = csv.Species.cat.codes
 csv_test['Species'] = pd.Categorical(csv_test['Species'])

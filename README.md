@@ -4,6 +4,13 @@
 
 Este algoritmo e dividido em passos, vamos passar pela coleta de dados brutos, preparacao dos dados, criacao dao algoritmo Machine Learning (ML) para iniciar o aprendizado, e por fim o teste para validar a precisao do modelo criado e perda.
 
+=> Requisitos: <br>
+Python 3.8 (https://www.python.org/downloads/release/python-380/) <br>
+TensorFlow	``` pip3 install tensorflow``` <br>
+Keras		``` pip3 install keras ``` <br>
+Pandas		``` pip3 install pandas ``` <br>
+
+
 - Coleta de dados brutos:
 
 Os dados foram coletados a partir do site da Kraggle (https://www.kaggle.com/) no endereco completo que se refere aos dados sobre as Iris Species em CSV (https://www.kaggle.com/uciml/iris), a planilha vem bruta com dados das petalas. Os dados das sépala incluem (excluindo a identificacao do registro em 'Id') Comprimento, Largura, e da petala incluem tambem comprimento e largura, dados que para determinados valores para esses parametros pode-se saber sobre qual flor se trata ('Species',coluna como consta no CSV), que no caso e nosso conjunto de saida ou resultado que podem ser 'Iris-Setosa', 'Iris-versicolor' ou 'Iris-Virginica'.

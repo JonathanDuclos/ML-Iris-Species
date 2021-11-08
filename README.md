@@ -5,11 +5,12 @@
 
 Este algoritmo e dividido em passos, vamos passar pela coleta de dados brutos, preparacao dos dados, criacao dao algoritmo Machine Learning (ML) para iniciar o aprendizado, e por fim o teste para validar a precisao do modelo criado e perda.
 
-=> Requisitos: <br>
+- Requisitos: <br>
 Python 3.8 (https://www.python.org/downloads/release/python-380/) <br>
 TensorFlow	``` pip3 install tensorflow``` <br>
 Keras		``` pip3 install keras ``` <br>
 Pandas		``` pip3 install pandas ``` <br>
+NumPy		``` pip3 install numpy ``` <br>
 
 
 - Coleta de dados brutos:
